@@ -1,7 +1,7 @@
 import { useTasks } from '../context/TaskContext'
 
 function Archive() {
-  const { tasks } = useTasks()
+  const { tasks, deleteTask } = useTasks()
   const archivedTasks = tasks.filter(t => t.archived)
 
   return (
@@ -12,7 +12,10 @@ function Archive() {
         <div key={task.id} className="task-card done">
           <h3>{task.title}</h3>
           <p>{task.description}</p>
-          <span className="priority">Priority: {task.priority}</span>
+          <div className="card-footer">
+            <span className="priority">Priority: {task.priority}</span>
+            <button className="delete-btn" onClick={() => deleteTask(task.id)}>Delete</button>
+          </div>
         </div>
       ))}
     </main>

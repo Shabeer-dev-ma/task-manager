@@ -1,4 +1,5 @@
-import { createContext, useContext, useState, useEffect } from 'react'
+import { createContext, useContext } from 'react'
+import useLocalStorage from '../hooks/useLocalStorage'
 
 // 1. Create the context
 const TaskContext = createContext()
@@ -10,18 +11,11 @@ export function useTasks() {
 
 // 3. Create the provider — holds all state and logic
 export function TaskProvider({ children }) {
-  const [tasks, setTasks] = useState(() => {
-    const saved = localStorage.getItem('tasks')
-    return saved ? JSON.parse(saved) : [
-      { id: 1, title: 'Buy groceries', description: 'Milk, eggs, bread', priority: 'Low', archived: false },
-      { id: 2, title: 'Finish React tutorial', description: 'Complete steps 3 through 10', priority: 'High', archived: false },
-      { id: 3, title: 'Call the bank', description: 'Ask about account fees', priority: 'Medium', archived: false },
-    ]
-  })
-
-  useEffect(() => {
-    localStorage.setItem('tasks', JSON.stringify(tasks))
-  }, [tasks])
+  const [tasks, setTasks] = useLocalStorage('tasks', [
+    { id: 1, title: 'Buy groceries', description: 'Milk, eggs, bread', priority: 'Low', archived: false },
+    { id: 2, title: 'Finish React tutorial', description: 'Complete steps 3 through 10', priority: 'High', archived: false },
+    { id: 3, title: 'Call the bank', description: 'Ask about account fees', priority: 'Medium', archived: false },
+  ])
 
   function addTask(newTask) {
     setTasks(prev => [...prev, { ...newTask, archived: false }])
@@ -31,8 +25,16 @@ export function TaskProvider({ children }) {
     setTasks(prev => prev.map(t => t.id === id ? { ...t, archived: true } : t))
   }
 
+  function deleteTask(id) {
+    setTasks(prev => prev.filter(t => t.id !== id))
+  }
+
+  function updateTask(id, changes) {
+    setTasks(prev => prev.map(t => t.id === id ? { ...t, ...changes } : t))
+  }
+
   return (
-    <TaskContext.Provider value={{ tasks, addTask, archiveTask }}>
+    <TaskContext.Provider value={{ tasks, addTask, archiveTask, deleteTask, updateTask }}>
       {children}
     </TaskContext.Provider>
   )
