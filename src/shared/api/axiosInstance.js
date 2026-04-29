@@ -16,10 +16,19 @@ api.interceptors.request.use(
   (error) => Promise.reject(error)
 )
 
-// Response interceptor — normalise errors into a consistent shape
+// Response interceptor — normalise errors + auto-logout on 401 (expired/invalid token)
 api.interceptors.response.use(
   (response) => response,
   (error) => {
+    if (error.response?.status === 401) {
+      // Token expired or invalid — clear stored auth and send user to login
+      localStorage.removeItem('token')
+      localStorage.removeItem('user')
+      // Only redirect if we're not already on the login page
+      if (!window.location.pathname.startsWith('/login')) {
+        window.location.href = '/login'
+      }
+    }
     const message =
       error.response?.data?.error ||
       error.message ||

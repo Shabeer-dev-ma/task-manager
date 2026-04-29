@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { login, register } from '../../../shared/api/authApi'
 import { useAuthStore } from '../store/useAuthStore'
 
@@ -12,6 +12,10 @@ function AuthPage() {
 
   const setAuth    = useAuthStore(s => s.setAuth)
   const navigate   = useNavigate()
+  const location   = useLocation()
+
+  // After login, go back to wherever the user was trying to reach
+  const from = location.state?.from?.pathname || '/'
 
   async function handleSubmit(e) {
     e.preventDefault()
@@ -21,7 +25,7 @@ function AuthPage() {
       const fn = mode === 'login' ? login : register
       const { token, user } = await fn(email, password)
       setAuth(token, user)
-      navigate('/')
+      navigate(from, { replace: true })
     } catch (err) {
       setError(err.message)
     } finally {
