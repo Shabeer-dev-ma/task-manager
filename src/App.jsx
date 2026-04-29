@@ -33,7 +33,7 @@ function App() {
         <BrowserRouter>
           <NavBar />
           <ErrorBoundary>
-            <div className="app">
+            <div className="flex-1">
               <Routes>
                 <Route path="/login" element={<RedirectIfAuth><AuthPage /></RedirectIfAuth>} />
                 <Route path="/" element={<RequireAuth><Home /></RequireAuth>} />
