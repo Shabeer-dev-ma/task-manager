@@ -5,15 +5,7 @@
       "title": "Buy groceries",
       "description": "Milk, eggs, bread",
       "priority": "Low",
-      "archived": false,
-      "createdAt": "2026-04-29T11:11:19.483Z"
-    },
-    {
-      "id": 2,
-      "title": "Finish React tutorial",
-      "description": "Complete steps 3 through 10",
-      "priority": "High",
-      "archived": false,
+      "archived": true,
       "createdAt": "2026-04-29T11:11:19.483Z"
     },
     {
@@ -33,5 +25,20 @@
       "createdAt": "2026-04-29T11:16:27.372Z"
     }
   ],
-  "nextId": 6
+  "nextId": 6,
+  "users": [
+    {
+      "id": 1,
+      "email": "test@example.com",
+      "passwordHash": "$2b$12$evGT03eXufQnmyULnUCCpOUIcd4AjCy49.hljfuq1U3pTmTUWVA6a",
+      "createdAt": "2026-04-29T11:22:28.598Z"
+    },
+    {
+      "id": 2,
+      "email": "mknshabeer@gmail.com",
+      "passwordHash": "$2b$12$eRaO2pr5fgQsdFq7/.k5peU2qt8sCm6ki56ZTT/J7RGnDaQq.Ciyu",
+      "createdAt": "2026-04-29T11:24:17.652Z"
+    }
+  ],
+  "nextUserId": 3
 }

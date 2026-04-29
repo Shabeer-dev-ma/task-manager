@@ -5,13 +5,15 @@ import store from './store'
 import './App.css'
 import { Home } from './features/tasks'
 import { Archive } from './features/archive'
+import AuthPage from './features/auth/pages/AuthPage'
 import NavBar from './shared/components/NavBar'
+import { RequireAuth } from './shared/components/RequireAuth'
 
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      retry: 1,               // retry failed requests once
-      refetchOnWindowFocus: true, // refresh stale data when user returns to tab
+      retry: 1,
+      refetchOnWindowFocus: true,
     },
   },
 })
@@ -24,8 +26,9 @@ function App() {
           <NavBar />
           <div className="app">
             <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/archive" element={<Archive />} />
+              <Route path="/login" element={<AuthPage />} />
+              <Route path="/" element={<RequireAuth><Home /></RequireAuth>} />
+              <Route path="/archive" element={<RequireAuth><Archive /></RequireAuth>} />
             </Routes>
           </div>
         </BrowserRouter>

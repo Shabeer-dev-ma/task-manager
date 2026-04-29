@@ -6,11 +6,11 @@ const api = axios.create({
   timeout: 10_000,
 })
 
-// Request interceptor — good place to attach auth tokens later (Tier 2 Step 3)
+// Request interceptor — attach JWT token from localStorage if present
 api.interceptors.request.use(
   (config) => {
-    // const token = localStorage.getItem('token')
-    // if (token) config.headers.Authorization = `Bearer ${token}`
+    const token = localStorage.getItem('token')
+    if (token) config.headers.Authorization = `Bearer ${token}`
     return config
   },
   (error) => Promise.reject(error)
