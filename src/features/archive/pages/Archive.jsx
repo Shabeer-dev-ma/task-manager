@@ -1,8 +1,9 @@
-import { useTasks } from '../../tasks/context/TaskContext'
+import { useDispatch, useSelector } from 'react-redux'
+import { selectArchivedTasks, deleteTask } from '../../tasks/store/tasksSlice'
 
 function Archive() {
-  const { tasks, deleteTask } = useTasks()
-  const archivedTasks = tasks.filter(t => t.archived)
+  const dispatch = useDispatch()
+  const archivedTasks = useSelector(selectArchivedTasks)
 
   return (
     <main>
@@ -14,7 +15,7 @@ function Archive() {
           <p>{task.description}</p>
           <div className="card-footer">
             <span className="priority">Priority: {task.priority}</span>
-            <button className="delete-btn" onClick={() => deleteTask(task.id)}>Delete</button>
+            <button className="delete-btn" onClick={() => dispatch(deleteTask(task.id))}>Delete</button>
           </div>
         </div>
       ))}

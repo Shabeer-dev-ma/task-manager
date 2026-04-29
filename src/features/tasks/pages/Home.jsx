@@ -1,15 +1,17 @@
-import { useTasks } from '../context/TaskContext'
+import { useDispatch, useSelector } from 'react-redux'
+import { selectAllTasks, addTask, archiveTask, deleteTask, updateTask } from '../store/tasksSlice'
 import useTaskFilters from '../hooks/useTaskFilters'
 import TaskForm from '../components/TaskForm'
 import TaskCard from '../components/TaskCard'
 
 function Home() {
-  const { tasks, addTask, archiveTask, deleteTask, updateTask } = useTasks()
+  const dispatch = useDispatch()
+  const tasks = useSelector(selectAllTasks)
   const { filtered, search, setSearch, filterPriority, setFilterPriority } = useTaskFilters(tasks)
 
   return (
     <main>
-      <TaskForm onAddTask={addTask} />
+      <TaskForm onAddTask={task => dispatch(addTask(task))} />
 
       <div className="filters">
         <input
@@ -35,9 +37,9 @@ function Home() {
           title={task.title}
           description={task.description}
           priority={task.priority}
-          onArchive={() => archiveTask(task.id)}
-          onDelete={() => deleteTask(task.id)}
-          onUpdate={(changes) => updateTask(task.id, changes)}
+          onArchive={() => dispatch(archiveTask(task.id))}
+          onDelete={() => dispatch(deleteTask(task.id))}
+          onUpdate={(changes) => dispatch(updateTask({ id: task.id, changes }))}
         />
       ))}
     </main>

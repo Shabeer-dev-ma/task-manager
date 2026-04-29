@@ -1,9 +1,10 @@
 import { NavLink } from 'react-router-dom'
-import { useTasks } from '../../features/tasks'
+import { useSelector } from 'react-redux'
+import { selectActiveTasks } from '../../features/tasks/store/tasksSlice'
 
 function NavBar() {
-  const { tasks } = useTasks()
-  const activeCount = tasks.filter(t => !t.archived).length
+  const activeTasks = useSelector(selectActiveTasks)
+  const activeCount = activeTasks.length
 
   return (
     <nav className="navbar">
