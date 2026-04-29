@@ -1,0 +1,29 @@
+{
+  "tasks": [
+    {
+      "id": 1,
+      "title": "Buy groceries",
+      "description": "Milk, eggs, bread",
+      "priority": "Low",
+      "archived": false,
+      "createdAt": "2026-04-29T11:11:19.483Z"
+    },
+    {
+      "id": 2,
+      "title": "Finish React tutorial",
+      "description": "Complete steps 3 through 10",
+      "priority": "High",
+      "archived": false,
+      "createdAt": "2026-04-29T11:11:19.483Z"
+    },
+    {
+      "id": 3,
+      "title": "Call the bank",
+      "description": "Ask about account fees",
+      "priority": "Medium",
+      "archived": false,
+      "createdAt": "2026-04-29T11:11:19.483Z"
+    }
+  ],
+  "nextId": 5
+}
