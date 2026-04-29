@@ -1,9 +1,8 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import './App.css'
-import { TaskProvider } from './context/TaskContext'
-import NavBar from './components/NavBar'
-import Home from './pages/Home'
-import Archive from './pages/Archive'
+import { TaskProvider, Home } from './features/tasks'
+import { Archive } from './features/archive'
+import NavBar from './shared/components/NavBar'
 
 function App() {
   return (

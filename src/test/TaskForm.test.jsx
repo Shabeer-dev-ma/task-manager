@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, it, expect, vi } from 'vitest'
-import TaskForm from '../components/TaskForm'
+import TaskForm from '../features/tasks/components/TaskForm'
 
 describe('TaskForm', () => {
   it('renders the Add Task button', () => {
