@@ -8,6 +8,7 @@ import { Archive } from './features/archive'
 import AuthPage from './features/auth/pages/AuthPage'
 import NavBar from './shared/components/NavBar'
 import { RequireAuth } from './shared/components/RequireAuth'
+import ErrorBoundary from './shared/components/ErrorBoundary'
 import { useAuthStore } from './features/auth/store/useAuthStore'
 
 const queryClient = new QueryClient({
@@ -31,14 +32,16 @@ function App() {
       <QueryClientProvider client={queryClient}>
         <BrowserRouter>
           <NavBar />
-          <div className="app">
-            <Routes>
-              <Route path="/login" element={<RedirectIfAuth><AuthPage /></RedirectIfAuth>} />
-              <Route path="/" element={<RequireAuth><Home /></RequireAuth>} />
-              <Route path="/archive" element={<RequireAuth><Archive /></RequireAuth>} />
-              <Route path="*" element={<Navigate to="/" replace />} />
-            </Routes>
-          </div>
+          <ErrorBoundary>
+            <div className="app">
+              <Routes>
+                <Route path="/login" element={<RedirectIfAuth><AuthPage /></RedirectIfAuth>} />
+                <Route path="/" element={<RequireAuth><Home /></RequireAuth>} />
+                <Route path="/archive" element={<RequireAuth><Archive /></RequireAuth>} />
+                <Route path="*" element={<Navigate to="/" replace />} />
+              </Routes>
+            </div>
+          </ErrorBoundary>
         </BrowserRouter>
       </QueryClientProvider>
     </Provider>

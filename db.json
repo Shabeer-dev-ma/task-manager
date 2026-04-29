@@ -2,43 +2,49 @@
   "tasks": [
     {
       "id": 1,
-      "title": "Buy groceries",
-      "description": "Milk, eggs, bread",
-      "priority": "Low",
-      "archived": true,
-      "createdAt": "2026-04-29T11:11:19.483Z"
-    },
-    {
-      "id": 3,
-      "title": "Call the bank",
-      "description": "Ask about account fees",
-      "priority": "Medium",
+      "userId": 1,
+      "title": "Alice's secret task",
+      "description": "",
+      "priority": "High",
       "archived": false,
-      "createdAt": "2026-04-29T11:11:19.483Z"
-    },
-    {
-      "id": 5,
-      "title": "Test",
-      "description": "Added",
-      "priority": "Medium",
-      "archived": false,
-      "createdAt": "2026-04-29T11:16:27.372Z"
-    }
-  ],
-  "nextId": 6,
-  "users": [
-    {
-      "id": 1,
-      "email": "test@example.com",
-      "passwordHash": "$2b$12$evGT03eXufQnmyULnUCCpOUIcd4AjCy49.hljfuq1U3pTmTUWVA6a",
-      "createdAt": "2026-04-29T11:22:28.598Z"
+      "createdAt": "2026-04-29T11:32:49.631Z"
     },
     {
       "id": 2,
-      "email": "mknshabeer@gmail.com",
-      "passwordHash": "$2b$12$eRaO2pr5fgQsdFq7/.k5peU2qt8sCm6ki56ZTT/J7RGnDaQq.Ciyu",
-      "createdAt": "2026-04-29T11:24:17.652Z"
+      "userId": 3,
+      "title": "Alice secret",
+      "description": "",
+      "priority": "High",
+      "archived": false,
+      "createdAt": "2026-04-29T11:32:56.736Z"
     }
   ],
-  "nextUserId": 3
+  "nextId": 3,
+  "users": [
+    {
+      "id": 1,
+      "email": "alice@example.com",
+      "passwordHash": "$2b$12$YqMS1lUMeWcZMCngGIIZCeLakU4WTvg4TEkCp8aYDoHCd/xyRsc2y",
+      "createdAt": "2026-04-29T11:32:47.124Z"
+    },
+    {
+      "id": 2,
+      "email": "bob@example.com",
+      "passwordHash": "$2b$12$YYuXLSEvV77zSBp1yeY/ruMT7oaVEOprkHIEv8OffSDXjC.rTVfC6",
+      "createdAt": "2026-04-29T11:32:48.504Z"
+    },
+    {
+      "id": 3,
+      "email": "alice@test.com",
+      "passwordHash": "$2b$12$ql39v7qsJoiAilad2WQ0IuCi7VXP5Zo5K6IZIZR2Uf2PGgikFppbi",
+      "createdAt": "2026-04-29T11:32:56.518Z"
+    },
+    {
+      "id": 4,
+      "email": "bob@test.com",
+      "passwordHash": "$2b$12$SoGSR99f5iHjtOL.phA8c.duLGg1vOJzqGr9y1Qm2riqWYScXkTVW",
+      "createdAt": "2026-04-29T11:32:56.732Z"
+    }
+  ],
+  "nextUserId": 5
 }

@@ -12,6 +12,14 @@ dist
 dist-ssr
 *.local
 
+# Runtime database — not source code, regenerates on first run
+db.json
+
+# Environment files with secrets
+.env
+.env.production
+server/.env
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

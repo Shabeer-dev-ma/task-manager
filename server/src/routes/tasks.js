@@ -15,21 +15,21 @@ function validateTask(body) {
   return null
 }
 
-// GET /api/tasks — list all tasks
+// GET /api/tasks — list only the current user's tasks
 router.get('/', (req, res) => {
   const { tasks } = readDb()
-  res.json(tasks)
+  res.json(tasks.filter(t => t.userId === req.userId))
 })
 
-// GET /api/tasks/:id — get one task
+// GET /api/tasks/:id — get one task (must belong to current user)
 router.get('/:id', (req, res) => {
   const db = readDb()
-  const task = db.tasks.find(t => t.id === Number(req.params.id))
+  const task = db.tasks.find(t => t.id === Number(req.params.id) && t.userId === req.userId)
   if (!task) return res.status(404).json({ error: 'Task not found' })
   res.json(task)
 })
 
-// POST /api/tasks — create a task
+// POST /api/tasks — create a task owned by the current user
 router.post('/', (req, res) => {
   const error = validateTask(req.body)
   if (error) return res.status(400).json({ error })
@@ -37,6 +37,7 @@ router.post('/', (req, res) => {
   const db = readDb()
   const task = {
     id: db.nextId++,
+    userId: req.userId,                           // ← ownership
     title: req.body.title.trim(),
     description: (req.body.description || '').trim(),
     priority: req.body.priority || 'Medium',
@@ -49,10 +50,10 @@ router.post('/', (req, res) => {
   res.status(201).json(task)
 })
 
-// PATCH /api/tasks/:id — update fields on a task
+// PATCH /api/tasks/:id — update only if task belongs to current user
 router.patch('/:id', (req, res) => {
   const db = readDb()
-  const index = db.tasks.findIndex(t => t.id === Number(req.params.id))
+  const index = db.tasks.findIndex(t => t.id === Number(req.params.id) && t.userId === req.userId)
   if (index === -1) return res.status(404).json({ error: 'Task not found' })
 
   const allowed = ['title', 'description', 'priority', 'archived']
@@ -72,10 +73,10 @@ router.patch('/:id', (req, res) => {
   res.json(db.tasks[index])
 })
 
-// DELETE /api/tasks/:id — delete a task
+// DELETE /api/tasks/:id — delete only if task belongs to current user
 router.delete('/:id', (req, res) => {
   const db = readDb()
-  const index = db.tasks.findIndex(t => t.id === Number(req.params.id))
+  const index = db.tasks.findIndex(t => t.id === Number(req.params.id) && t.userId === req.userId)
   if (index === -1) return res.status(404).json({ error: 'Task not found' })
 
   db.tasks.splice(index, 1)
@@ -85,3 +86,4 @@ router.delete('/:id', (req, res) => {
 })
 
 export default router
+
