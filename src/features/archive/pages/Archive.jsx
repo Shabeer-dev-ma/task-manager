@@ -1,9 +1,11 @@
-import { useDispatch, useSelector } from 'react-redux'
-import { selectArchivedTasks, deleteTask } from '../../tasks/store/tasksSlice'
+import { useTasksQuery, useDeleteTask } from '../../tasks/hooks/useTasksQuery'
 
 function Archive() {
-  const dispatch = useDispatch()
-  const archivedTasks = useSelector(selectArchivedTasks)
+  const { data: tasks = [], isLoading } = useTasksQuery()
+  const deleteTask = useDeleteTask()
+  const archivedTasks = tasks.filter(t => t.archived)
+
+  if (isLoading) return <p className="empty">Loading...</p>
 
   return (
     <main>
@@ -15,7 +17,7 @@ function Archive() {
           <p>{task.description}</p>
           <div className="card-footer">
             <span className="priority">Priority: {task.priority}</span>
-            <button className="delete-btn" onClick={() => dispatch(deleteTask(task.id))}>Delete</button>
+            <button className="delete-btn" onClick={() => deleteTask.mutate(task.id)}>Delete</button>
           </div>
         </div>
       ))}

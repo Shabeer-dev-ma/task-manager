@@ -1,9 +1,9 @@
-import { useState } from 'react'
+import useFilterStore from '../store/ui/useFilterStore'
 
-// Encapsulates filter + search logic — keeps the page component clean
+// Reads filter state from Zustand — persists across page navigations
+// Previously used useState, which reset on every unmount
 function useTaskFilters(tasks) {
-  const [search, setSearch] = useState('')
-  const [filterPriority, setFilterPriority] = useState('All')
+  const { search, filterPriority, setSearch, setFilterPriority } = useFilterStore()
 
   const filtered = tasks
     .filter(t => !t.archived)
